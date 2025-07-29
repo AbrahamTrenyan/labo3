@@ -16,11 +16,11 @@ desde = atoi(argv[1]);
 hasta = atoi(argv[2]);
 }
 printf("cantidad = %d desde = %d hasta = %d \n",CANTIDAD, desde, hasta);
-srand(time(NULL));
+srand(time(NULL)); /* semilla para el generador de numeros aleatorios */
 
 for (n=0; n<CANTIDAD;n++)
 {
-num = (rand()%(hasta-desde+1))+desde;
+num = (rand()%(hasta-desde+1))+desde;/* genera un numero aleatorio entre desde y hasta */
 printf("el numero es %d \n", num);
 }
 
