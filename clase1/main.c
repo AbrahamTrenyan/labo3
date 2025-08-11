@@ -1,9 +1,9 @@
 #include<stdio.h>
 #include<stdlib.h>
-#include<time.h>
-#define CANTIDAD 10
-#define DESDE 0
-#define HASTA 10
+#include <time.h>
+#include "def.h"
+#include "funciones.h"
+
 int main(int argc, char *argv[])
 {
 int desde = DESDE;
@@ -20,7 +20,7 @@ srand(time(NULL)); /* semilla para el generador de numeros aleatorios */
 
 for (n=0; n<CANTIDAD;n++)
 {
-num = (rand()%(hasta-desde+1))+desde;/* genera un numero aleatorio entre desde y hasta */
+num = devolverNumAleatorio(desde, hasta);/* genera un numero aleatorio entre desde y hasta */
 printf("el numero es %d \n", num);
 }
 
