@@ -11,7 +11,7 @@ int main(int argc, char *argv[])
     int hasta = HASTA;
     int n;
     int numerosAleatorios[CANTIDAD];
-
+    int nroRepetitivo = -999;
     memset(numerosAleatorios, 0, sizeof(numerosAleatorios));
 
     if (argc == 3)
@@ -24,7 +24,13 @@ int main(int argc, char *argv[])
     srand(time(NULL));
 
     inDevolverNumeroAleatorioNoRepetitivo(numerosAleatorios, desde, hasta);
-
+    printf("Números aleatorios repetitivos:\n");
+    for (n = 0; n < CANTIDAD; n++)
+    {
+        nroRepetitivo = inDevolverNumeroAleatorio(desde, hasta);
+        printf("[%d] = %d\n", n, nroRepetitivo);
+    }
+    printf("Números aleatorios no repetitivos:\n");
     for (n = 0; n < CANTIDAD; n++)
     {
         printf("[%d] = %d\n", n, numerosAleatorios[n]);
