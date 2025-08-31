@@ -1,5 +1,13 @@
 {
     "files.associations": {
-        "stdio.h": "c"
+        "stdio.h": "c",
+        "__bit_reference": "c",
+        "bitset": "c",
+        "unordered_map": "c",
+        "chrono": "c",
+        "stdlib.h": "c",
+        "archivos.h": "c",
+        "def.h": "c",
+        "global.h": "c"
     }
 }

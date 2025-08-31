@@ -27,4 +27,5 @@ Este repositorio se irá completando progresivamente con:
 - Compilador: `gcc-4.1`
 - Herramientas: `make`, `gdb`, `ps`, entre otras
 
-
+Comando para enviar mediante NFS los archivos a Ubuntu:
+`sync_labo3`

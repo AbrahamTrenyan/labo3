@@ -1,0 +1,27 @@
+---
+description: Reglas básicas de estilo y estructura para programas en C según los lineamientos de la cátedra (hasta semáforos)
+globs:
+  - "**/*.c"
+  - "**/*.h"
+  - "Makefile"
+alwaysApply: true
+---
+
+- Todo programa debe tener un `main(int argc, char *argv[])`, y todo proceso también.
+- Las variables deben declararse al comienzo del archivo `.c`, **nunca dentro de funciones**.
+- **Prohibido usar `float` o `double`** en esta materia. Solo enteros.
+- Usar `memset()` para limpiar estructuras o buffers antes de usarlos.
+- El código debe estar **modularizado** y seguir el **framework de la cátedra**.
+- No usar `#include <...>` para archivos propios. Usar `#include "archivo.h"`.
+- Nunca hacer `#include` de archivos `.c`.
+- No declarar variables en archivos `.h`, sólo en archivos `.c`.
+- Los semáforos se usan **únicamente entre -1 y 1**.
+- Solo se trabaja con archivos **secuenciales de texto**.
+- Si usás números aleatorios, `srand()` debe estar en `main()`, **no encapsulado en funciones**.
+- Usar siempre `chmod 755` para los ejecutables.
+- En el `Makefile`, los comandos deben tener **TAB** al comienzo.
+- El `Makefile` debe compilar exactamente dos procesos (dos ejecutables).
+- No repetir ejecutables: si se usan varias veces, se lanzan múltiples instancias desde terminales.
+- No encapsular `#include`s dentro de `.h`, a menos que sea absolutamente necesario según la materia.
+- Usar `usleep()` en vez de funciones propias para espera.
+- Agregar un `readme.txt` con instrucciones y descripción del programa.
