@@ -4,7 +4,7 @@
 #include "archivos.h"
 #include "def.h"
 #include "global.h"
-FILE *ptrFile; /*se puede/debe declarar el puntero para el uso de archivos, global de archivo*/
+FILE *ptrFile; 
 int inAbrirArchivo(char *szNombreArchivo, char *szModo)
 {
     ptrFile = fopen(szNombreArchivo, szModo);
@@ -21,7 +21,6 @@ int inLeerArchivo(char *szBuffer)
     /*Se puede colocar una validación, sobre la lectura*/
     if (fscanf(ptrFile, "%s", szBuffer) != 1)
         return FALSE;
-    /*fscanf(ptrFile, "%s", szBuffer);*/ /*Se puede optimizar siendo mas certeros en el buffer*/
     return TRUE;
 }
 int inEscribirArchivo(char *szDatos)
@@ -37,6 +36,14 @@ int inExisteArchivo(char *szNombreArchivo)
     FILE *file;
     if ((file = fopen(szNombreArchivo, "r"))) {
         fclose(file);
+        return TRUE;
+    }
+    return FALSE;
+}
+
+int inRenombrarArchivo(char *szNombreOriginal, char *szNombreNuevo)
+{
+    if (rename(szNombreOriginal, szNombreNuevo) == 0) {
         return TRUE;
     }
     return FALSE;

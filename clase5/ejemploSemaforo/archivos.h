@@ -4,5 +4,4 @@ int inAbrirArchivo(char *szNombreArchivo, char *szModo);
 void voCerrarArchivo(void);
 int inLeerArchivo(char *szBuffer);
 int inEscribirArchivo(char *szDatos);
-int inExisteArchivo(char *szNombreArchivo);
 #endif

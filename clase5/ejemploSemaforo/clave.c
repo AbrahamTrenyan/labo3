@@ -15,4 +15,3 @@ key_t creo_clave(int r_clave)
 	}
 	return clave;
 }
-

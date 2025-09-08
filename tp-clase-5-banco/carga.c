@@ -8,9 +8,6 @@
 #include "archivos.h"
 #include "funciones.h"
 
-/* Variables globales externas */
-extern int id_semaforo;
-
 int main(int argc, char *argv[])
 {
     int vuelo;
@@ -23,7 +20,7 @@ int main(int argc, char *argv[])
     inicia_semaforo(id_semaforo, 1);
     
     printf("=== CARGA ===\n");
-    printf("Ingrese vuelos (0 para finalizar):\n");
+    printf("Ingrese vuelos (%d para terminar):\n", VUELO_FIN);
     
     espera_semaforo(id_semaforo);
     
@@ -34,7 +31,7 @@ int main(int argc, char *argv[])
     }
     
     do {
-        printf("Vuelo (%d-%d, 0 para finalizar): ", VUELO_MIN, VUELO_MAX);
+        printf("Vuelo (%d-%d, %d para terminar): ", VUELO_MIN, VUELO_MAX, VUELO_FIN);
         scanf("%d", &vuelo);
         
         if (vuelo == VUELO_FIN) {
@@ -43,16 +40,15 @@ int main(int argc, char *argv[])
         
         if (vuelo < VUELO_MIN || vuelo > VUELO_MAX) {
             printf("Error: vuelo debe estar entre %d y %d\n", VUELO_MIN, VUELO_MAX);
-            continue;
+        } else {
+            printf("Destino: ");
+            scanf("%s", destino);
+            printf("Nombre: ");
+            scanf("%s", nombre);
+            sprintf(linea, "%d|%s|%s\n", vuelo, destino, nombre);
+            inEscribirArchivo(linea);
+            printf("Reserva agregada exitosamente!\n\n");
         }
-        
-        printf("Destino: ");
-        scanf("%s", destino);
-        printf("Nombre del pasajero: ");
-        scanf(" %[^\n]", nombre);  /* Lee linea completa con espacios */
-        sprintf(linea, "%d|%s|%s\n", vuelo, destino, nombre);
-        inEscribirArchivo(linea);
-        printf("Reserva agregada exitosamente!\n\n");
         
     } while (vuelo != VUELO_FIN);
     
