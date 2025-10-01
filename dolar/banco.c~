@@ -1,0 +1,107 @@
+#include <stdlib.h>
+#include <stdio.h>
+#include <unistd.h>
+#include <sys/ipc.h>
+#include <string.h>
+#include "clave.h"
+#include "def.h"
+#include "semaforo.h"
+#include "archivos.h"
+
+
+int main(int argc, char *argv[]){
+	
+	int id_semaforo;
+
+	int id_usuario=0, monto=0, i=0, saldo_usuario=0;
+	char moneda[LENGTH+1]; 
+
+	char *buffer;
+	char *filename;
+	char *tok;
+
+	int saldos[4] = {500000, 500000, 500000, 500000};
+
+	FILE *fp;
+	
+	filename = (char*) malloc(sizeof(char)*(LENGTH+1));
+	buffer = (char*) malloc(sizeof(char)*(LENGTH+1));
+	tok = (char*) malloc(sizeof(char)*(LENGTH+1));
+
+	/* Limpio memoria */
+	memset(buffer, 0x00, sizeof(buffer));
+	memset(filename, 0x00, sizeof(filename));
+	memset(moneda, 0x00, sizeof(moneda));
+	memset(tok, 0x00, sizeof(tok));
+
+	/* Inicio semaforo */
+	id_semaforo = creo_semaforo();
+	iniciar_semaforo(id_semaforo, VERDE);
+
+	while(1) {
+		
+		esperar_semaforo(id_semaforo);
+
+		for(i=0; i<2; i++) {
+			
+			/* Abrimos archivo de cada cajero (1 y 2) */
+			sprintf(filename, "cajero-%d.txt", i+1);
+
+			if(openFile(&fp, "r+", filename) == 0) {
+					
+				while(!feof(fp)) {
+					buffer = readFile(fp);
+					
+					/* Tok es aux para leer archivo */
+					tok = strtok(buffer, "-");
+					strcpy(moneda, tok);
+
+					tok = strtok(0, "-");
+					monto = atoi(tok);
+
+					tok = strtok(0, "-");			
+					id_usuario = atoi(tok);
+					/*
+					if(strcmp(moneda, "D") ==0){
+							monto = monto*1250;
+							printf("\nPor convertibilidad a dolar blue el monto es: %d", monto);				
+					} */
+
+
+					saldo_usuario=saldos[id_usuario-1];
+
+					printf("\nEl monto del usuario con ID %d es: %d", id_usuario, saldo_usuario);
+
+					if(saldo_usuario < monto) {
+						printf("\nEl usuario no cuenta con saldo suficiente. Se cancela la transaccion");
+					} else {
+
+						saldos[id_usuario-1] = saldo_usuario - monto;
+					}
+					printf("\nAhora el saldo es: %d", saldos[id_usuario-1]);
+
+				}
+
+				id_usuario=0;
+				monto=0;
+				saldo_usuario=0;
+				strcpy(moneda, "\0");
+				
+				closeFile(fp);	
+				
+
+			}
+		}
+		printf("\n----------");
+		levantar_semaforo(id_semaforo);
+		sleep(1);
+
+	}
+
+	free(filename);
+	free(buffer);
+	free(tok);
+
+	return 0;
+}
+

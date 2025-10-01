@@ -4,7 +4,7 @@
 #include "archivos.h"
 #include "def.h"
 #include "global.h"
-FILE *ptrFile; /*se puede/debe declarar el puntero para el uso de archivos, global de archivo*/
+FILE *ptrFile;
 int inAbrirArchivo(char *szNombreArchivo, char *szModo)
 {
     ptrFile = fopen(szNombreArchivo, szModo);
@@ -12,23 +12,45 @@ int inAbrirArchivo(char *szNombreArchivo, char *szModo)
         return FALSE;
     return TRUE;
 }
-void voCerrarArchivo(void)
+void voCerrarArchivo()
 {
     fclose(ptrFile);
 }
 int inLeerArchivo(char *szBuffer)
 {
     /*Se puede colocar una validación, sobre la lectura*/
-    if (fscanf(ptrFile, "%s", szBuffer) != 1)
+    if (fgets(szBuffer, LARGO, ptrFile) == NULL)
         return FALSE;
-    /*fscanf(ptrFile, "%s", szBuffer);*/ /*Se puede optimizar siendo mas certeros en el buffer*/
     return TRUE;
 }
-int inEscribirArchivo(char *szDatos)
+int inEscribirArchivo(char *szNombreArchivo, char *szDatos)
 {
-    int inRes = 0;
-    inRes = fprintf(ptrFile, "%s", szDatos);
-    if (inRes < 0)
+    if (inAbrirArchivo(szNombreArchivo, "a"))
+    {
+        fprintf(ptrFile, "%s", szDatos);
+        /*printf("Se escribió en el archivo: %s", szNombreArchivo);*/
+        voCerrarArchivo();
+        return TRUE;
+    }
+    else
+    {
         return FALSE;
-    return TRUE;
+    }
 }
+int inExisteArchivo(char *szNombreArchivo)
+{
+    if ((ptrFile = fopen(szNombreArchivo, "r")))
+    {
+        fclose(ptrFile);
+        return TRUE;
+    }
+    return FALSE;
+}
+int inRenombrarArchivo(char *szNombreOriginal, char *szNombreNuevo){
+    if (rename(szNombreOriginal, szNombreNuevo) == 0)
+    {
+        return TRUE;
+    }
+    return FALSE;
+}
+

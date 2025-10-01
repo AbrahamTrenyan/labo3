@@ -1,28 +1,33 @@
-#include "stdio.h"
-#include "stdlib.h"
-#include "string.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <string.h>
+#include <time.h>
 #include "archivos.h"
+#include "semaforos.h"
+#include "clave.h"
 #include "def.h"
-
-char szLinea[100 + 1];
-int i;
+#include "global.h"
+#include "funciones.h"
 
 int main(int argc, char *argv[])
 {
-    memset(szLinea, 0, sizeof(szLinea));
-    if (inAbrirArchivo("producto.txt", "r") == TRUE)
+    /*Declaracion de variables*/
+    int id_semaforo;
+    char buffer[LARGO];
+    /*Memset*/
+
+    /*Verifico si paso el argumento y obtengo numero de caja*/
+    /*Obtengo semaforo*/
+    id_semaforo = creo_semaforo(); 
+    while(1)
     {
-        while (inLeerArchivo(szLinea) == TRUE)
-        {
-            printf("%s\n", szLinea);
-            memset(szLinea, 0, sizeof(szLinea));
-        }
-        voCerrarArchivo();
-    }
-    else
-    {
-        printf("No se pudo abrir el archivo para consumo.\n");
-        return 1;
+        espera_semaforo(id_semaforo);
+        /*Menu/Logica consumidor*/
+        inLeerArchivo(ARCHIVO, buffer);
+        levanta_semaforo(id_semaforo);
+        usleep(100 * MS);
     }
     return 0;
 }
+

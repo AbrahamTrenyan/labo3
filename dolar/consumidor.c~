@@ -1,0 +1,74 @@
+#include <stdlib.h>
+#include <stdio.h>
+#include <unistd.h>
+#include <sys/ipc.h>
+#include <string.h>
+#include "clave.h"
+#include "def.h"
+#include "semaforo.h"
+#include "archivos.h"
+
+
+int main(int argc, char *argv[]){
+	
+	int id_semaforo;
+	int id_cajero;	
+	char *buffer;
+	char *filename;
+	int precio=0, cant_productos=0;
+	FILE *fp;
+
+	if(argc != 2) {
+		printf("Error: Debe enviarse un unico argumento por parametro\n");
+		exit(1);
+	}
+
+	id_cajero = atoi(argv[1]);
+	
+	buffer = (char*) malloc(sizeof(char)*(LENGTH+1));
+	filename = (char*) malloc(sizeof(char)*(LENGTH+1));
+
+	/* Limpio memoria */
+	memset(buffer, 0x00, sizeof(buffer));
+
+	/* Recibo semaforo ya */
+	id_semaforo = creo_semaforo();
+
+	sprintf(filename, "cajero-%d.txt", id_cajero);
+
+	while(1) {
+		
+		esperar_semaforo(id_semaforo);
+		printf("-- CONSUMIDOR ENTRA SEMAFORO --\n");		
+
+		if(openFile(&fp, "r+", filename) == 0) {
+		        	
+			while(!feof(fp)) {
+				buffer = readFile(fp);
+				precio += atoi(strtok(buffer, "|"));
+				cant_productos++;
+			
+			}
+
+			printf("Cantidad de productos: %d\n", cant_productos);
+			printf("Precio total a pagar: %d\n", precio);
+			precio=0;
+			cant_productos=0;
+
+			closeFile(fp);	
+
+			printf("-- CONSUMIDOR LEVANTA SEMAFORO --\n");			
+		
+		}
+
+		levantar_semaforo(id_semaforo);
+		sleep(1);
+
+	}
+
+	free(buffer);
+	free(filename);
+
+	return 0;
+}
+

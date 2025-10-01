@@ -1,12 +1,10 @@
 #ifndef _GLOBAL
 #define _GLOBAL
+/*Variables globales*/
+extern int id_semaforo;
 
-extern int inVariableGlobal;
-
-typedef struct {
-    char nombre[50];
-    int legajo;
-    int sueldo;   
-} Empleado;
-
+struct producto{
+	int precio;
+	char descripcion[255+1];
+} Producto;
 #endif

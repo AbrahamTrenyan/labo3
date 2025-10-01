@@ -1,0 +1,107 @@
+#include <stdlib.h>
+#include <stdio.h>
+#include <unistd.h>
+#include <sys/ipc.h>
+#include <string.h>
+#include "clave.h"
+#include "def.h"
+#include "semaforo.h"
+#include "archivos.h"
+
+struct producto {
+	char *precio;
+	char *descripcion;
+} producto;
+
+int main(int argc, char *argv[]){
+	
+	int id_semaforo, id_cajero;
+	
+	int id_usuario=0;
+	int monto=0;
+
+	char moneda[LENGTH+1];
+	char buffer[LENGTH+1];	
+	char *filename;
+	FILE *fp;
+
+	if(argc != 2) {
+                printf("Error: Debe enviarse un unico argumento como parametro\n");
+                exit(1);
+        }
+
+        id_cajero = atoi(argv[1]);
+
+	filename = (char*) malloc(sizeof(char)*(LENGTH+1));
+
+	/* Limpio memoria */
+	memset(buffer, 0x00, sizeof(buffer));
+	memset(filename, 0x00, sizeof(filename));
+	memset(moneda, 0x00, sizeof(moneda));
+
+	/* Recibo semaforo ya iniciado */
+	id_semaforo = creo_semaforo();
+
+	while(1) {
+		
+		esperar_semaforo(id_semaforo);
+		
+		printf("Ingrese ID de usuario (1, 2, 3, 4): ");
+		scanf("%d", &id_usuario);
+
+		while(id_usuario < 1 || id_usuario > 4) {
+			
+			printf("\n Error: ID de usuario no es valido");
+			printf("Ingrese ID de usuario (1, 2, 3, 4): ");
+			scanf("%d", &id_usuario);
+
+		}
+
+		sprintf(filename, "cajero-%d.txt", id_cajero);
+
+		if(openFile(&fp, "w+", filename) == 0) {
+                
+			printf("\nIngrese en que moneda realizara la transaccion. Pesos (P) o Dolares (D): ");
+			scanf("%s", moneda);
+		
+			/* Validamos tipo de moneda 
+			while(moneda != "D") {
+				printf("\nError: Tipo de moneda no es valido {%s}", moneda);
+				printf("\nIngrese en que moneda realizara la transaccion. Pesos (P) o Dolares (D): ");
+				scanf("%s", moneda);
+			}
+			*/
+
+			printf("\nIngrese monto: ");
+			scanf("%d", &monto);
+			
+			while(monto<=0) {
+				printf("\nError: Monto debe ser superior a 0.");
+				printf("\nIngrese monto: ");
+				scanf("%d", &monto);
+			}			
+			
+			/* Moneda-Monto-ID Usuario */
+			sprintf(buffer, "%s-%d-%d", moneda, monto, id_usuario);
+			writeFile(fp, buffer);
+
+		}
+		
+		/* Reset variables */
+		id_usuario=0;
+		monto=0;
+		strcpy(moneda, "\0");
+
+		closeFile(fp);		
+
+		levantar_semaforo(id_semaforo);	
+		sleep(1);
+		
+	}
+
+
+	free(filename);
+
+	return 0;
+}
+

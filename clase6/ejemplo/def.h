@@ -1,7 +1,7 @@
 #define CANTIDAD 10
 #define CANTIDAD_TOTAL 10
-#define DESDE 0
-#define HASTA 25
+#define DESDE 1
+#define HASTA 99
 #define TRUE 1
 #define FALSE 0
 #define LARGO 150
