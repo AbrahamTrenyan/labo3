@@ -29,3 +29,38 @@ Este repositorio se irá completando progresivamente con:
 
 Comando para enviar mediante NFS los archivos a Ubuntu:
 `sync_labo3`
+
+##Comandos para comprimir y descomprimir carpetas(entregas tp y parciales)📦 
+
+    ###Comprimir una carpeta en .tar.gz
+
+    Parado en el directorio donde está la carpeta:
+
+    `tar -czf nombre-archivo.tar.gz nombre-carpeta`
+
+
+    👉 Ejemplo:
+
+    `tar -czf Trenyan-tp-memoria-compartida.tar.gz tp-memoria-compartida`
+
+    ####Ver el contenido sin descomprimir 👀 
+
+    `tar -tzf nombre-archivo.tar.gz`
+
+    ### 📂 Descomprimir en una carpeta destino
+
+    Crear la carpeta destino:
+
+    `mkdir nombre-destino`
+
+
+    Extraer ahí el contenido:
+
+    `tar -xzf nombre-archivo.tar.gz -C nombre-destino`
+
+
+    👉 Ejemplo:
+
+    `mkdir descomprimirTP`
+
+    `tar -xzf Trenyan-tp-memoria-compartida.tar.gz -C descomprimirTP`
