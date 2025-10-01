@@ -34,22 +34,22 @@ sync_labo3
 ### 🔹 Comprimir una carpeta en `.tar.gz`
 Parado en el directorio donde está la carpeta:  
     
-    ```bash
-    tar -czf nombre-archivo.tar.gz nombre-carpeta
-    ```
+```sh
+tar -czf nombre-archivo.tar.gz nombre-carpeta
+```
 
 👉 Ejemplo:  
 
-    ```bash
-    tar -czf Trenyan-tp-memoria-compartida.tar.gz tp-memoria-compartida
-    ```
+```bash
+tar -czf Trenyan-tp-memoria-compartida.tar.gz tp-memoria-compartida
+```
 
 ---
 
 ### 🔹 Ver el contenido sin descomprimir 👀
-    ```bash
-    tar -tzf nombre-archivo.tar.gz 
-    ```
+```bash
+tar -tzf nombre-archivo.tar.gz 
+```
 
     
 
@@ -57,16 +57,16 @@ Parado en el directorio donde está la carpeta:
 
 ### 🔹 Descomprimir en una carpeta destino 📂
 **1. Crear la carpeta destino:**
-    ```bash
-    mkdir nombre-destino
-    ```
+```bash
+mkdir nombre-destino
+```
 **2. Extraer ahí el contenido:**
-    ```bash
-    tar -xzf nombre-archivo.tar.gz -C nombre-destino
-    ```
+```bash
+tar -xzf nombre-archivo.tar.gz -C nombre-destino
+```
 👉 Ejemplo:
-    ```bash
-    mkdir descomprimirTP
-    tar -xzf Trenyan-tp-memoria-compartida.tar.gz -C descomprimirTP
-    ```
+```bash
+mkdir descomprimirTP
+tar -xzf Trenyan-tp-memoria-compartida.tar.gz -C descomprimirTP
+```
 
