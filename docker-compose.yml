@@ -1,8 +1,0 @@
----
-services:
-  service1:
-    platform: linux/amd64
-    build:
-      dockerfile: Dockerfile
-    volumes:
-      - .:/app
