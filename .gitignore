@@ -1,0 +1,18 @@
+# IDE and editor configurations
+.vscode/
+.cursor/
+
+# Build artifacts
+*.o
+*.out
+*.profraw
+
+# Executables (you may want to add specific ones)
+main
+main1
+main2
+a.out
+
+# Backup files
+*~
+
