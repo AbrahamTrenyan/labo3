@@ -29,7 +29,6 @@ int inDevolverNumeroAleatorioNoRepetitivo(int numerosAleatorios[], int inDesde, 
         printf("ERROR: Rango inválido [%d, %d]\n", inDesde, inHasta);
         return -1;
     }
-    /* Generar todos los números del rango sin repetir */
     for (posicion = 0; posicion < cantidadTotal; posicion++)
     {
         repetido = 1;
@@ -48,5 +47,5 @@ int inDevolverNumeroAleatorioNoRepetitivo(int numerosAleatorios[], int inDesde, 
         }
         numerosAleatorios[posicion] = numero;
     }
-    return cantidadTotal;  /* Retorna la cantidad de números generados */
+    return cantidadTotal;  
 }

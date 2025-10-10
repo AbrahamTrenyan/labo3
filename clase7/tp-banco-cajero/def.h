@@ -12,12 +12,18 @@
 #define ENTERO 10             /*Entero para ftok()*/
 #define CLAVE_BASE 33         /*Clave base para semaforos*/
 #define MS 1000               /*Multiplicar usleep() por la cantidad de ms requerida*/
-typedef struct descripcion descripcion;
-struct descripcion
-{
-int codigo;
-int cantidad;
-char nombre[LARGO_MENSAJE];
-};
+#define CANTIDAD_CLIENTES 100
+#define MENSAJE_A_BANCO 1
+#define MENSAJE_A_CAJERO 2
+#define EVT_CONSULTA_SALDO 1
+#define EVT_DEPOSITO 2
+#define EVT_EXTRACCION 3
+#define EVT_RTA_SALDO 4
+#define EVT_RTA_SALDO_NOK 5
+#define EVT_RTA_DEPOSITO_OK 6
+#define EVT_RTA_DEPOSITO_NOK 7
+#define EVT_RTA_EXTRACCION_OK 8
+#define EVT_RTA_EXTRACCION_NOK 9
+
 
 #endif
