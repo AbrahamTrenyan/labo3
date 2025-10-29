@@ -1,9 +1,21 @@
 {
 	"folders": [
-		{
-			"path": ".."
-		}
-	],
+        {
+            "path": ".."
+        },
+        {
+            "path": "../../../../Downloads/Codigos/Codigo Pienso un numero Threads"
+        },
+        {
+            "path": "../../../../Downloads/Codigos/CodigoBancoCajero Threads"
+        },
+        {
+            "path": "../../../../Downloads/Codigos/CodigoPeaje"
+        },
+        {
+            "path": "../../../../Downloads/Codigos/CodigoUtil"
+        }
+    ],
 	"settings": {
 		"files.associations": {
 			"stdio.h": "c",
